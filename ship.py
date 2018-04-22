@@ -1,9 +1,12 @@
 import pygame
+from pygame.sprite import Sprite
 
-class Ship():
+class Ship(Sprite):
     def __init__(self, ai_settings, screen):
+        super(Ship, self).__init__()
+
         self.screen = screen
-        self.image = pygame.image.load('images/masktchi.png')
+        self.image = pygame.image.load('images/ship.bmp')
         self.rect = self.image.get_rect()
         self.screen_rect = screen.get_rect()
         self.ai_settings = ai_settings
@@ -15,6 +18,8 @@ class Ship():
         self.moving_right = False
         
         self.center = float(self.rect.centerx)
+
+        self.crash = pygame.mixer.Sound("video/crash.wav")
 
     def blitme(self):
         self.screen.blit(self.image, self.rect)
@@ -29,3 +34,6 @@ class Ship():
     
     def  center_ship(self):
         self.center = self.screen_rect.centerx
+
+    def play_sound(self):
+        self.crash.play()
